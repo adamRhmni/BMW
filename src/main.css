@@ -105,42 +105,7 @@ body {
   }
 }
 
-.hero_menu_button {
-  position: fixed;
-  /* 10px right = 0.74vw */
-  right: clamp(0.5rem, 0.74vw, 1.5rem);
-  /* 10px top = 1.52vh */
-  top: clamp(0.5rem, 1.52vh, 2rem);
-  cursor: pointer;
-  z-index: 1000;
-  /* 3em = 48px = 3.53vw */
-  height: clamp(2rem, 3.53vw, 5rem);
-  width: clamp(2rem, 3.53vw, 5rem);
 
-  svg {
-    height: 100%;
-    width: 100%;
-
-    path {
-      stroke: #000000;
-      transition: stroke 300ms ease-in-out, transform 300ms ease-in-out;
-    }
-  }
-
-  &:hover path {
-    stroke: #797979;
-  }
-}
-
-#hero_menu_button {
-  transition: transform 300ms ease;
-  transform: translate3d(5rem, 0, 0);
-}
-
-/* When checked, change stroke */
-#hero_toggle:checked + .hero_menu_button svg path {
-  stroke: #fff;
-}
 
 #css3-hero {
   perspective: 1000px;
@@ -370,48 +335,52 @@ input[type="checkbox"] {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  z-index: 1000;
+  z-index: 100;
   transition: opacity 0.3s ease;
 }
 
-span[data-camera] {
-  span {
-    display: inline-block;
-    /* 0.25rem = 4px = 0.29vw */
-    padding: clamp(0.15rem, 0.29vw, 0.5rem) clamp(0.3rem, 0.59vw, 1rem);
-    /* 1px border = 0.07vw */
-    border: clamp(0.05rem, 0.07vw, 0.15rem) solid #f783f7;
-    border-radius: 9999px;
-    /* 2em = 32px = 2.36vw */
-    width: clamp(1.5rem, 2.36vw, 3rem);
-    height: clamp(1.5rem, 2.36vw, 3rem);
-    text-align: center;
-    background: #2a2a2a;
-    color: #ffffff;
-    cursor: pointer;
-    transition: background 0.3s ease;
-
-    &:hover {
-      background: #f783f7;
-      color: #000;
-    }
-  }
+#cameraPositions label {
+  cursor: pointer;
 }
 
-span[data-camera] {
-  /* 2.5em = 40px = 2.95vw */
-  width: clamp(2rem, 2.95vw, 4rem);
-  height: clamp(2rem, 2.95vw, 4rem);
+#cameraPositions label input {
+  display: none;
+}
+
+#cameraPositions label span {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* 2.5em = 40px = 2.95vw */
+  width: clamp(2rem, 2.95vw, 3rem);
+  height: clamp(2rem, 2.95vw, 3rem);
   border-radius: 9999px;
   /* 1px border = 0.07vw */
   border: clamp(0.05rem, 0.07vw, 0.15rem) solid #f783f7;
+  background: #2a2a2a;
+  color: #ffffff;
   transition: background 0.3s ease, transform 0.3s ease;
-  &:hover {
-    transform: matrix(1, 0, 0, 1, 0, -2px);
+  &::before{
+    content: "";
+    /* display: block; */
+    position: absolute;
+    width: clamp(2.4rem, 2.95vw, 3.4rem);
+    height: clamp(2.4rem, 2.95vw, 3.4rem);
+    border-radius: 9999px;
+    /* background: #f783f7; */
+    border: 1px solid #f783f7;
   }
+}
+
+#cameraPositions label span:hover {
+  /* color: white; */
+  background-color:black
+
+}
+
+#cameraPositions label input:checked + span {
+  background: #f783f7;
+  color: #000;
 }
 
 #edit span {
@@ -1249,7 +1218,7 @@ span[data-camera] {
   width: 100%;
   height: 50%;
   background: rgb(0, 0, 0);
-  z-index: 200;
+  z-index: 1001;
   pointer-events: none;
   transition: transform 0.2s ease-in-out;
 }
@@ -1355,7 +1324,6 @@ span[data-camera] {
 #about-wrapper {
   width: 80vw;
   height: 80dvh;
-
   color: white;
   border-radius: 20px;
   padding: clamp(1rem, 2vw, 2.5rem);
@@ -1364,7 +1332,6 @@ span[data-camera] {
   left: 50%;
   transform: translate(-50%, -50%);
   overflow-y: auto;
-
   background: rgba(20, 20, 20, 0.9);
   box-shadow: 0 0 40px rgba(247, 131, 247, 0.2);
   line-height: 1.6;
@@ -1406,15 +1373,37 @@ span[data-camera] {
   color: #f783f7;
   text-decoration: none;
 }
-
 .about-content a:hover {
   text-decoration: underline;
 }
-
 .about-content footer {
   margin-top: 2em;
   font-size: 0.85rem;
   color: #aaa;
   border-top: 1px solid #333;
   padding-top: 1rem;
+}
+#hide-ui{
+  border:1px solid #f783f7;
+  border-radius: 20px;
+  padding: clamp(0.2rem, 0.44vw, 0.6rem) clamp(0.3rem, 0.74vw, 1rem);
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  font-weight: 700;
+
+  label{
+    cursor: pointer;
+    font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+    color: #f783f7;
+    text-transform: uppercase;
+    padding: 3px 2px;
+
+  }
+  input {
+    appearance: none;
+
+  }
+
 }
