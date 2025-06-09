@@ -205,6 +205,11 @@ document.getElementById("hide-ui-checkbox").addEventListener("change", (e) => {
     hideUIB.style.opacity = "0.5";
     uiContainer.style.opacity = "0.5";
     uiContainer.style.pointerEvents = "none";
+    document.querySelectorAll(".pane").forEach((p) => {
+
+      p.style.pointerEvents = "none";
+    });
+
   } else {
     cameraControlsUI.style.pointerEvents = "auto";
     cameraControlsUI.style.opacity = "1";
@@ -213,6 +218,10 @@ document.getElementById("hide-ui-checkbox").addEventListener("change", (e) => {
     hideUIB.style.opacity = "1";
     uiContainer.style.opacity = "1";
     uiContainer.style.pointerEvents = "auto";
+    document.querySelectorAll(".pane").forEach((p) => {
+
+      p.style.pointerEvents = "auto";
+    });
   }
 });
 
