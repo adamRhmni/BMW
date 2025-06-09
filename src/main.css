@@ -584,6 +584,7 @@ input[type="checkbox"] {
   position: fixed;
   inset: 0;
   pointer-events: auto;
+  transition: opacity 0.3s ease;
 }
 
 #car-ui,
@@ -764,8 +765,6 @@ input[type="checkbox"] {
   will-change: transform;
   transition: transform 300ms ease;
 }
-
-
 
 .ui-mat-label {
   display: flex;
@@ -1377,6 +1376,12 @@ input[type="checkbox"] {
   right: 1rem;
   z-index: 10;
   font-weight: 700;
+  opacity: 0.8;
+  transition: opacity 200ms ease;
+
+  &:hover {
+    opacity: 1;
+  }
 
   label {
     cursor: pointer;
@@ -1385,7 +1390,7 @@ input[type="checkbox"] {
     text-transform: uppercase;
     padding: 3px 2px;
   }
-  input{
+  input {
     appearance: none;
   }
 }
