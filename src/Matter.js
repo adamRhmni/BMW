@@ -69,7 +69,7 @@ export function createPhysicsWorld(container) {
   const mouse = Mouse.create(render.canvas);
   const mouseConstraint = MouseConstraint.create(engine, {
     mouse,
-    constraint: { stiffness: 0.9, render: { visible: false } },
+    constraint: { stiffness: 0.5, render: { visible: false } },
   });
   World.add(world, mouseConstraint);
   render.mouse = mouse;

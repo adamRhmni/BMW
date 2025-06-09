@@ -98,7 +98,7 @@ document.getElementById("app-container").innerHTML = `
 
 <!-- Start screen -->
 <div id="start-screen">
-  <p>Tap anywhere to start</p>
+  <p>Tap to start</p>
 </div>
 
 <!-- Main content -->
@@ -547,8 +547,17 @@ loadermanager.onProgress = (_, loaded, total) => {
 // When loading completes
 loadermanager.onLoad = () => {
   loadingComplete = true;
-  bgLoader.style.opacity = "0";
-  bgLoader.style.display = "none";
+
+  gsap.to(bgLoader,{
+    duration: 1.3,
+    opacity: 0,
+    scale:2,
+    ease:"power2.out",
+    onComplete: () => {
+      bgLoader.style.display = "none";
+    }
+
+  })
   // cleanupMatter();
   // After fade out, check orientation and show appropriate screen
   setTimeout(() => {
@@ -810,10 +819,10 @@ const target1 = new THREE.Vector3(-724, 233, -50);
 const target2 = new THREE.Vector3(700, 233, 80);
 const target3 = new THREE.Vector3(0, 4, 0);
 const target4 = new THREE.Vector3(0, 4, 0);
-let duration1 = 6;
-let duration2 = 5;
-let duration3 = 4;
-let duration4 = 6;
+let duration1 = 5.5;
+let duration2 = 4.5;
+let duration3 = 3;
+let duration4 = 4;
 
 // Add target vectors to Theatre for live control
 // const target1Obj = sheet.object("Target1", {
@@ -905,7 +914,7 @@ function startSpaceMan() {
     duration: 6,
     ease: "power2.inOut",
     onStart: () => {
-      let cleanintervalBlink = setInterval(blink(150), 4000);
+      let cleanintervalBlink = setInterval(blink(150), 3000);
       // bgsound.play();
       entersound.play();
     },
@@ -985,6 +994,7 @@ function startSpaceMan() {
                   camera_2.lookAt(interp);
                 },
                 onComplete: () => {
+                  entersound.play();
                   camera_2.lookAt(target4);
                   // bgsound.play()
                   stopBlinking();
