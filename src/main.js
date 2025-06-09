@@ -1003,7 +1003,7 @@ function startSpaceMan() {
                   camera_2.lookAt(interp);
                 },
                 onComplete: () => {
-                  entersound.play();
+                  entersound.stop();
                   camera_2.lookAt(target4);
                   // bgsound.play()
                   stopBlinking();
