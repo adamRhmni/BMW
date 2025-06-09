@@ -11,9 +11,9 @@ import { VignetteShader } from "three/examples/jsm/shaders/VignetteShader.js";
 // import studio from "@theatre/studio";
 import { LoadingManager } from "three";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
-
+const uiContainer = document.getElementById("ui-panels");
+// 
 document.getElementById("app-container").innerHTML = `
-
 <!-- Loading screen -->
 <div id="bg-loader">
   <div id="matterContainer"></div>
@@ -136,7 +136,7 @@ document.getElementById("ui-container").innerHTML = `
         </div>
       </div>
 `;
-const uiContainer = document.getElementById("ui-panels");
+
 uiContainer.innerHTML = `
       <div id="car-ui" class="pane hidden"></div>
       <div id="camera-ui" class="pane hidden"></div>
@@ -168,7 +168,7 @@ cameraControlsUI.innerHTML = `
   </label>
 `;
 const EDIT_UI = document.getElementById("ui-container");
-document.getElementById("ui-panels").classList.add("hidden"); // hide all panes initially
+uiContainer.classList.add("hidden"); // hide all panes initially
 EDIT_TOGGLE.addEventListener("click", () => {
   EDIT_TOGGLE.innerHTML = `<span>EDIT</span><svg fill="#ffffff" viewBox="0 0 24 24" id="settings-alt-2" data-name="Flat Color" xmlns="http://www.w3.org/2000/svg" class="icon flat-color"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path id="primary" d="M21.42,21.42h0a2,2,0,0,1-2.82,0l-7.18-7.18A6.48,6.48,0,0,1,2,9.05a7.07,7.07,0,0,1,.1-1.85A1,1,0,0,1,3.8,6.74L7,10l2.49-.5L10,7,6.74,3.8A1,1,0,0,1,7.2,2.12,7.07,7.07,0,0,1,9.05,2a6.48,6.48,0,0,1,5.19,9.4l7.18,7.18A2,2,0,0,1,21.42,21.42Z" style="fill: #ffffff;"></path></g></svg>`;
   panes.forEach((p) => p.classList.add("hidden")); // hide all
@@ -203,12 +203,16 @@ document.getElementById("hide-ui-checkbox").addEventListener("change", (e) => {
     EDIT_UI.style.opacity = "0";
     EDIT_UI.style.pointerEvents = "none";
     hideUIB.style.opacity = "0.5";
+    uiContainer.style.opacity = "0.5";
+    uiContainer.style.pointerEvents = "none";
   } else {
     cameraControlsUI.style.pointerEvents = "auto";
     cameraControlsUI.style.opacity = "1";
     EDIT_UI.style.opacity = "1";
     EDIT_UI.style.pointerEvents = "auto";
     hideUIB.style.opacity = "1";
+    uiContainer.style.opacity = "1";
+    uiContainer.style.pointerEvents = "auto";
   }
 });
 
@@ -1605,8 +1609,6 @@ cameraPositionsUI.forEach((el) => {
     }
   });
 });
-//
-//
 
 const vertexShaderDUST = `
 // GLSL simplex noise by Ian McEwan, Ashima Arts (compact)
@@ -1688,13 +1690,7 @@ uniform float uPointsSize;
 uniform float uWindForceX;
 uniform float uWindForceY;
 
-
-
-
 varying float vAlpha;
-
-// Include Simplex noise (snoise) if not already in your shader
-// You MUST include the snoise function or import it from a shader chunk
 
 void main() {
   vec3 pos = position;
@@ -1725,7 +1721,7 @@ void main() {
 `;
 // TODO 1000
 // dust particle system
-const count = 1000;
+const count = 1500;
 const geometry = new THREE.BufferGeometry();
 const positions = new Float32Array(count * 3);
 const initialPositions = new Float32Array(count * 3);
@@ -1779,9 +1775,9 @@ scene.add(particles);
 
 // sprites
 // Smaller rotation values
-let Xrotate = 0.002;   // was 0.008
-let Yrotate = 0.0005;  // was 0.002
-let Zrotate = 0.0015;  // was 0.005
+let Xrotate = 0.002; // was 0.008
+let Yrotate = 0.0005; // was 0.002
+let Zrotate = 0.0015; // was 0.005
 
 // Optional: slower oscillation speed
 let Xtimerotate = 0.08;
@@ -1793,7 +1789,7 @@ function animate(time) {
 
   const delta = clock.getDelta(); // only call once per frame
 
-  if (blackHoleMixer) blackHoleMixer.update(delta * 0.1);
+  if (blackHoleMixer) blackHoleMixer.update(delta * 0.3);
   if (AstronautMixer) AstronautMixer.update(delta * 2);
 
   asteroidBelt.rotation.y += 0.008;

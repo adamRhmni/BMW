@@ -105,8 +105,6 @@ body {
   }
 }
 
-
-
 #css3-hero {
   perspective: 1000px;
   transform-style: preserve-3d;
@@ -360,7 +358,7 @@ input[type="checkbox"] {
   background: #2a2a2a;
   color: #ffffff;
   transition: background 0.3s ease, transform 0.3s ease;
-  &::before{
+  &::before {
     content: "";
     /* display: block; */
     position: absolute;
@@ -374,8 +372,7 @@ input[type="checkbox"] {
 
 #cameraPositions label span:hover {
   /* color: white; */
-  background-color:black
-
+  background-color: black;
 }
 
 #cameraPositions label input:checked + span {
@@ -768,24 +765,14 @@ input[type="checkbox"] {
   transition: transform 300ms ease;
 }
 
-#sticker-ui-mat::before {
-  content: "Map";
-  text-transform: uppercase;
-  font-size: clamp(0.8rem, 2.21vw, 2.5rem);
-  color: #f783f7;
-  top: clamp(-2rem, -2.79vw, -1rem);
-  left: 0;
-  width: 100%;
-  text-align: center;
-  font-weight: bold;
-  letter-spacing: clamp(1px, 0.15vw, 3px);
-}
+
 
 .ui-mat-label {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: clamp(0.5rem, 0.74vw, 1.5rem);
+  box-shadow: 0 0 40px rgba(247, 131, 247, 0.2);
   padding: clamp(0.2rem, 0.44vw, 0.6rem) clamp(0.3rem, 0.74vw, 1rem);
   border-radius: clamp(0.3rem, 0.52vw, 1rem);
   cursor: pointer;
@@ -857,8 +844,6 @@ input[type="checkbox"] {
   pointer-events: none;
   opacity: 0;
 }
-
-
 
 .pane {
   z-index: 100;
@@ -1257,7 +1242,7 @@ input[type="checkbox"] {
 }
 
 #SoundControls::before {
-  content: "Sound";
+  content: "MUSIC";
   text-transform: uppercase;
   font-size: clamp(0.6rem, 1.47vw, 2rem);
   color: #f783f7;
@@ -1383,8 +1368,8 @@ input[type="checkbox"] {
   border-top: 1px solid #333;
   padding-top: 1rem;
 }
-#hide-ui{
-  border:1px solid #f783f7;
+#hide-ui {
+  border: 1px solid #f783f7;
   border-radius: 20px;
   padding: clamp(0.2rem, 0.44vw, 0.6rem) clamp(0.3rem, 0.74vw, 1rem);
   position: absolute;
@@ -1393,17 +1378,11 @@ input[type="checkbox"] {
   z-index: 10;
   font-weight: 700;
 
-  label{
+  label {
     cursor: pointer;
     font-size: clamp(0.9rem, 1.2vw, 1.1rem);
     color: #f783f7;
     text-transform: uppercase;
     padding: 3px 2px;
-
   }
-  input {
-    appearance: none;
-
-  }
-
 }
