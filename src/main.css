@@ -1385,4 +1385,7 @@ input[type="checkbox"] {
     text-transform: uppercase;
     padding: 3px 2px;
   }
+  input{
+    appearance: none;
+  }
 }
