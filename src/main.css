@@ -1399,3 +1399,21 @@ input[type="checkbox"] {
     appearance: none;
   }
 }
+#screenshot-btn{
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
+  z-index: 120;
+  svg{
+    width: 40px;
+    height: 40px;
+    transition: fill 200ms ease;
+    &:hover{
+      fill:#f783f7;
+    }
+  
+    
+
+  }
+}

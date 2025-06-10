@@ -5,14 +5,37 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader.js";
 import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import * as core from "@theatre/core";
+// import * as core from "@theatre/core";
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 import { VignetteShader } from "three/examples/jsm/shaders/VignetteShader.js";
 // import studio from "@theatre/studio";
 import { LoadingManager } from "three";
 import { UnrealBloomPass } from "three/examples/jsm/postprocessing/UnrealBloomPass";
 const uiContainer = document.getElementById("ui-panels");
-// 
+//
+
+// let isRecording = false;
+// let currentFrame = 0;
+// let zip;
+
+// document.getElementById("start-recording").onclick = () => {
+//   zip = new JSZip();
+//   currentFrame = 0;
+//   isRecording = true;
+//   console.log("Recording started");
+// };
+
+// document.getElementById("stop-recording").onclick = () => {
+//   isRecording = false;
+//   console.log("Recording stopped, zipping...");
+//   zip.generateAsync({ type: "blob" }).then((content) => {
+//     const a = document.createElement("a");
+//     a.href = URL.createObjectURL(content);
+//     a.download = "frames.zip";
+//     a.click();
+//   });
+// };
+
 document.getElementById("app-container").innerHTML = `
 <!-- Loading screen -->
 <div id="bg-loader">
@@ -206,10 +229,8 @@ document.getElementById("hide-ui-checkbox").addEventListener("change", (e) => {
     uiContainer.style.opacity = "0.5";
     uiContainer.style.pointerEvents = "none";
     document.querySelectorAll(".pane").forEach((p) => {
-
       p.style.pointerEvents = "none";
     });
-
   } else {
     cameraControlsUI.style.pointerEvents = "auto";
     cameraControlsUI.style.opacity = "1";
@@ -219,7 +240,6 @@ document.getElementById("hide-ui-checkbox").addEventListener("change", (e) => {
     uiContainer.style.opacity = "1";
     uiContainer.style.pointerEvents = "auto";
     document.querySelectorAll(".pane").forEach((p) => {
-
       p.style.pointerEvents = "auto";
     });
   }
@@ -515,9 +535,7 @@ const camera_2 = new THREE.PerspectiveCamera(
   1000
 );
 
-const renderer = new THREE.WebGLRenderer({
-  antialias: true,
-});
+const renderer = new THREE.WebGLRenderer({antialias: true,preserveDrawingBuffer: true,});
 
 const maxpexilratio = Math.min(window.devicePixelRatio, 2);
 renderer.setPixelRatio(maxpexilratio);
@@ -557,16 +575,15 @@ loadermanager.onProgress = (_, loaded, total) => {
 loadermanager.onLoad = () => {
   loadingComplete = true;
 
-  gsap.to(bgLoader,{
+  gsap.to(bgLoader, {
     duration: 1.3,
     opacity: 0,
-    scale:2,
-    ease:"power2.out",
+    scale: 2,
+    ease: "power2.out",
     onComplete: () => {
       bgLoader.style.display = "none";
-    }
-
-  })
+    },
+  });
   // cleanupMatter();
   // After fade out, check orientation and show appropriate screen
   setTimeout(() => {
@@ -1478,8 +1495,8 @@ const clock = new THREE.Clock();
 // //
 //
 // TODO fake grafity
-
-const asteroidCount = 150;
+// TODO 150
+const asteroidCount = 1;
 
 const aseColorsb = [
   new THREE.Color(0x4b4b4b), // dark grey
@@ -1738,9 +1755,10 @@ void main() {
 }
 
 `;
-// TODO 1000
+
 // dust particle system
-const count = 1500;
+// TODO 1500
+const count = 1;
 const geometry = new THREE.BufferGeometry();
 const positions = new Float32Array(count * 3);
 const initialPositions = new Float32Array(count * 3);
@@ -1805,6 +1823,17 @@ let Ztimerotate = 0.3;
 
 function animate(time) {
   requestAnimationFrame(animate);
+
+  // record
+
+  // if (isRecording) {
+  //   const dataURL = renderer.domElement.toDataURL("image/png");
+  //   const filename = `frame_${String(currentFrame).padStart(4, "0")}.png`;
+  //   zip.file(filename, dataURL.split(",")[1], { base64: true });
+  //   currentFrame++;
+  // }
+
+  //
 
   const delta = clock.getDelta(); // only call once per frame
 
@@ -1886,3 +1915,15 @@ document.querySelectorAll(".ui-sound-radio").forEach((radio) => {
     }
   });
 });
+
+
+
+function takeScreenshot() {
+  composer.render(); // Ensure latest frame
+  const dataURL = renderer.domElement.toDataURL("image/png");
+  const a = document.createElement("a");
+  a.href = dataURL;
+  a.download = "screenshot.png";
+  a.click();
+}
+document.getElementById("screenshot-btn").addEventListener("click", takeScreenshot);
